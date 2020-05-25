@@ -1,0 +1,8 @@
+name: trec-cast-tools
+channels:
+  - laura-dietz
+  - anaconda
+dependencies:
+  - ftfy=5.7=py_0
+  - trec-car-tools=2.5.3=py37_0
+

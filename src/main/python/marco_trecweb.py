@@ -8,6 +8,8 @@ import sys
 import os
 import io
 import codecs
+import ftfy
+
 
 def parse_sim_file(filename):
     """
@@ -16,7 +18,7 @@ def parse_sim_file(filename):
     """
 
     sim_dict = {}
-    lines = open(filename).readlines()
+    lines = open(filename, 'r', encoding='utf-8').readlines()
     for line in lines:
         data = line.strip().split(':')
         if len(data[1]) > 0:
@@ -25,6 +27,7 @@ def parse_sim_file(filename):
                 sim_dict[docs] = 1
 
     return sim_dict
+
 
 def write_to_file(idx, text):
     # Writes the passage contents in trecweb format
@@ -43,6 +46,7 @@ def write_to_file(idx, text):
     content += (u'</HTML>\n')
     content += (u'</DOC>\n')
     fp.write(content)
+
 
 if __name__ == "__main__":
 
@@ -77,6 +81,7 @@ if __name__ == "__main__":
             # Split to get the original id and text
             idx, text = line.strip().split('\t', 1)
             idx = 'MARCO_' + idx
+            # text = ftfy.fix_text(text)
 
             # if the id is a duplicate, don't add it
             if idx in sim_dict:
